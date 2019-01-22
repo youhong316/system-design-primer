@@ -29,12 +29,12 @@ class Cache(object):
         self.lookup = {}  # key: query, value: node
         self.linked_list = LinkedList()
 
-    def get(self, query)
+    def get(self, query):
         """Get the stored query result from the cache.
 
         Accessing a node updates its position to the front of the LRU list.
         """
-        node = self.lookup[query]
+        node = self.lookup.get(query)
         if node is None:
             return None
         self.linked_list.move_to_front(node)
@@ -47,7 +47,7 @@ class Cache(object):
         If the entry is new and the cache is at capacity, removes the oldest entry
         before the new entry is added.
         """
-        node = self.lookup[query]
+        node = self.lookup.get(query)
         if node is not None:
             # Key exists in cache, update the value
             node.results = results
